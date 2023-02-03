@@ -6,7 +6,7 @@ interface UserState {
   getAllUser(): void;
   addUser(data: User): void;
   removeUser(id: string): void;
-  editUser(id: string): void;
+  editUser(d: User): void;
 }
 
 export const useStore = create<UserState>((set) => ({
@@ -24,7 +24,7 @@ export const useStore = create<UserState>((set) => ({
         }));
       }
     }
-    if (typeof error != null) {
+    if (error) {
       console.log("Error got occurred:=> " + error);
     }
   },
@@ -43,7 +43,6 @@ export const useStore = create<UserState>((set) => ({
     }
   },
   removeUser: async (_id: string) => {
-    // add api call here
     const [data, error] = await dataFetcher(`/user/${_id}`, "DELETE");
 
     if (typeof data !== null) {
@@ -55,5 +54,21 @@ export const useStore = create<UserState>((set) => ({
       console.log("Error got occurred:=> " + error);
     }
   },
-  editUser: () => {},
+  editUser: async (d: User) => {
+    const [data, error] = await dataFetcher(`/user/${d._id}`, "PATCH", d);
+
+    if (typeof data !== null) {
+      // console.log(data);
+      const userData = data?.data as User;
+
+      if (userData) {
+        set((state) => ({
+          users: [...state.users.filter((e) => e._id !== d._id), userData],
+        }));
+      }
+    }
+    if (error) {
+      console.log("Error got occurred:=> " + error);
+    }
+  },
 }));
