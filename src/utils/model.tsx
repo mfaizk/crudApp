@@ -3,10 +3,10 @@ export interface User {
   lastName: string;
   phoneNumber: number;
   age: number;
-  _id: string;
+  _id?: string;
 }
 
 export interface ApiData {
-  data: User[];
+  data: User[] | User;
   message: string;
 }

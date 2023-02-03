@@ -13,12 +13,14 @@ export const useStore = create<UserState>((set) => ({
   users: [],
   addUser: async (d: User) => {
     const [data, error] = await dataFetcher("/user/create", "post", d);
+
     if (typeof data !== null) {
-      console.log(data);
-      const userData = data?.data;
+      // console.log(data);
+      const userData = data?.data as User;
+
       if (userData) {
         set((state) => ({
-          users: [...userData, ...state.users],
+          users: [...state.users, userData],
         }));
       }
     }
@@ -33,7 +35,7 @@ export const useStore = create<UserState>((set) => ({
       //   console.log(data);
 
       set((state) => ({
-        users: data?.data,
+        users: data?.data as User[],
       }));
     }
     if (null) {
