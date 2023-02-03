@@ -378,12 +378,9 @@ function App() {
               <div className="bg-[#CDE990] flex flex-col gap-2 p-2 overflow-scroll w-[100vw] sm:w-auto h-[400px]">
                 {data ? (
                   data.map((e, i) => (
-                    <>
+                    <React.Fragment key={i}>
                       {/* card-start */}
-                      <div
-                        className="bg-[#FFFFE8] p-5 rounded flex flex-row items-center justify-between"
-                        key={i}
-                      >
+                      <div className="bg-[#FFFFE8] p-5 rounded flex flex-row items-center justify-between">
                         <details>
                           <summary>
                             <span className="font-serif text-[19px]">
@@ -426,7 +423,7 @@ function App() {
                         </div>
                       </div>
                       {/* card-end */}
-                    </>
+                    </React.Fragment>
                   ))
                 ) : (
                   <>
